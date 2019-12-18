@@ -1,0 +1,31 @@
+{
+    "name": "mcpuishor/orderwise-api",
+    "description": "Interaction endpoints for Orderwise connections",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability" : "dev",
+    "version" : "0.0.1",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mcpuishor\\OrderwiseApi\\OrderwiseApiServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "mcpuishor/greenberrycatalog": "^0.0.1",
+         "mtownsend/response-xml": "^1.1"
+    },
+    "authors": [
+        {
+            "name": "Robert Tudor",
+            "email": "eu@robert-tudor.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mcpuishor\\OrderwiseApi\\": "src/"
+        }
+    }
+}
