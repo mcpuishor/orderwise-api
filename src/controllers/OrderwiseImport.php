@@ -1,6 +1,5 @@
 <?php
-
-namespace Mcpuishor\OrderwiseApi;
+namespace Mcpuishor\OrderwiseApi\Controllers;
 
 use Mcpuishor\OrderwiseApi\XmlResponse,
 	Illuminate\Support\Facades\Storage,
@@ -13,9 +12,9 @@ use Mcpuishor\OrderwiseApi\XmlResponse,
 	Mcpuishor\Greenberrycatalog\Variant,
 	Mcpuishor\XmlUtil\Validator;
 
-class OrderwiseStockController extends Controller
+class OrderwiseImport extends \App\Http\Controllers\Controller
 {
-	use \App\Traits\MeasurableRuntime;
+	use \Mcpuishor\SuperTraits\MeasurableRuntime;
 
 	protected $entities;
 	private $previous_encoding;
