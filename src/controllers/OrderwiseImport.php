@@ -66,17 +66,17 @@ class OrderwiseImport extends \App\Http\Controllers\Controller
 	public function doimport()
 	{
 		if (!$this->storage->exists($this->getFilename())) {
-			return OrderwiseXmlResponse::with(
+			return XmlResponse::with(
     			"No file to process."
     		);
 		}
 		if (!Validator::file($this->getFilename())) {
-			return OrderwiseXmlResponse::with(
+			return XmlResponse::with(
 				"Error in processing the import. post is not a valid xml"
 			);
 		}
 		$this->processimport();
-		return OrderwiseXmlResponse::with(
+		return XmlResponse::with(
 				"Posted ".$this->entities->count(). " items, "
 				."Updated ".$this->updated. " items, "
 				."Created ".$this->created. " items. "
