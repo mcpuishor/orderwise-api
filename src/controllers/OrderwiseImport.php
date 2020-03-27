@@ -1,16 +1,16 @@
 <?php
 namespace Mcpuishor\OrderwiseApi\Controllers;
 
-use Mcpuishor\OrderwiseApi\XmlResponse,
+use	Illuminate\Http\Request,
+	Mcpuishor\OrderwiseApi\XmlResponse,
 	Illuminate\Support\Facades\Storage,
 	Illuminate\Support\Collection as IlluminateCollection,
 	Illuminate\Support\Str,
-	Illuminate\Http\Request,
 	Rodenastyle\StreamParser\StreamParser,
+	Mcpuishor\XmlUtil\Validator,
 	Mcpuishor\Greenberrycatalog\Product,
 	Mcpuishor\Greenberrycatalog\Category as ProductCategory,
-	Mcpuishor\Greenberrycatalog\Variant,
-	Mcpuishor\XmlUtil\Validator;
+	Mcpuishor\Greenberrycatalog\Variant;
 
 class OrderwiseImport extends \App\Http\Controllers\Controller
 {
@@ -72,7 +72,7 @@ class OrderwiseImport extends \App\Http\Controllers\Controller
 		}
 		if (!Validator::file($this->getFilename())) {
 			return XmlResponse::with(
-				"Error in processing the import. post is not a valid xml"
+				"Error in processing the import. Post is not a valid XML stream."
 			);
 		}
 		$this->processimport();
