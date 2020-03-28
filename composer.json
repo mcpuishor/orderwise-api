@@ -14,9 +14,9 @@
     },
     "require": {
         "php": "^7.2",
-        "mcpuishor/greenberrycatalog": "*",
         "mcpuishor/super-traits": "*",
-         "mtownsend/response-xml": "*"
+         "mtownsend/response-xml": "*",
+         "mcpuihsor/greenberrycatalog": "*"
     },
     "authors": [
         {

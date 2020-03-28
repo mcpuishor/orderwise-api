@@ -1,14 +1,9 @@
 <?php
 namespace Mcpuishor\OrderwiseApi\Controllers;
 
-use	Illuminate\Http\Request,
-	Mcpuishor\OrderwiseApi\XmlResponse,
-	Illuminate\Support\Facades\Storage,
-	Illuminate\Support\Collection as IlluminateCollection,
-	Illuminate\Support\Str,
-	Rodenastyle\StreamParser\StreamParser,
-	Mcpuishor\XmlUtil\Validator,
-	Mcpuishor\Greenberrycatalog\Product,
+use Mcpuishor\OrderwiseApi\Extract;
+
+use	Mcpuishor\Greenberrycatalog\Product,
 	Mcpuishor\Greenberrycatalog\Category as ProductCategory,
 	Mcpuishor\Greenberrycatalog\Variant;
 
@@ -17,101 +12,35 @@ class OrderwiseImport extends \App\Http\Controllers\Controller
 	use \Mcpuishor\SuperTraits\MeasurableRuntime;
 
 	protected $entities;
-	private $previous_encoding;
-	private $storage;
 	private $updated = 0;
 	private $created = 0;
 
 	public function __construct()
 	{
 		$this->startMeasureRuntime();
-    	$this->previous_encoding = mb_internal_encoding();
-    	mb_internal_encoding('UTF-8');
-    	$this->storage = Storage::disk('local');
 	}
 
-	private function getFilename()
-	{
-		return 'temp/stock.xml';
-	}
-
-	public function ping() {
-		echo "here we are";
-		die();
-	}
-
-	public function pingget() {
-		echo "get where we are";
-		die();
-	}
-
-	public function processimport()
-	{
-    	$this->entities= new IlluminateCollection();
-    	$file = $this->storage
-    				->getAdapter()
-    				->applyPathPrefix($this->getFilename());
-    	StreamParser::xml($file)
-    		->each(function($entity){
-				$this->entities->push($entity);
-			});
-		$this->storage->delete($this->getFilename());
-    	// process the payload
-    	$this->trimNestedObjects();
-    	$this->entities->each(
-					[$this, "save"]
-		);
-	}
-
-	public function doimport()
-	{
-		if (!$this->storage->exists($this->getFilename())) {
-			return XmlResponse::with(
-    			"No file to process."
-    		);
-		}
-		if (!Validator::file($this->getFilename())) {
-			return XmlResponse::with(
-				"Error in processing the import. Post is not a valid XML stream."
+    public function postimport()
+    {
+    	try {
+    		$entities = Extract(
+    						request()->getContent()
+    					)->get();
+	    	$entities->each(
+						[$this, "save"]
 			);
-		}
-		$this->processimport();
+    	} catch (\Exception $e) {
+    		return XmlResponse::with(
+    			"Error processing: ". $e->getMessage()
+    		);
+    	}
 		return XmlResponse::with(
 				"Posted ".$this->entities->count(). " items, "
 				."Updated ".$this->updated. " items, "
 				."Created ".$this->created. " items. "
 				."Processing time ".$this->measureRuntime()
 		);	
-	}
-
-    public function postimport()
-    {
-    	$xml = $this->extractXml(request()->getContent());
-    	$this->storage->put($this->getFilename(), $xml);
-    	return $this->doimport();
     }
-
-    public function extractXml($content)
-    {
-		$content = urldecode($content);
-		$content = preg_replace('/ExportData\=/', '', $content);
-		return $content;
-    }
-
-    protected function trimNestedObjects()
-	{
-		$this->entities = $this->entities
-						->map(
-							function($entity){
-								return $entity->map(function($attribute){
-									if (is_object($attribute) && $attribute->isEmpty()) {
-										return "";
-									}
-									return (string) $attribute;
-								});
-							}
-						);
-	}
 
 	public  function save($variantItemArray)
 	{
@@ -216,11 +145,5 @@ class OrderwiseImport extends \App\Http\Controllers\Controller
 					);
 		$name = Str::replaceFirst("[H]", "", $name);
 		return $name;
-	}
-
-	public function __destruct()
-	{
-    	mb_internal_encoding($this->previous_encoding);
-		parent::__destruct();
 	}
 }
