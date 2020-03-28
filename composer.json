@@ -15,8 +15,8 @@
     "require": {
         "php": "^7.2",
         "mcpuishor/super-traits": "*",
-         "mtownsend/response-xml": "*",
-         "mcpuishsor/greenberrycatalog": "*"
+        "mcpuishor/greenberrycatalog": "*",
+        "mtownsend/response-xml": "*"
     },
     "authors": [
         {
