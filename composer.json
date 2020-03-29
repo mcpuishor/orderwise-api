@@ -12,12 +12,18 @@
             ]
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mcpuishor/stream-parser"
+        }
+    ],
     "require": {
         "php": "^7.2",
         "mcpuishor/super-traits": "*",
         "mcpuishor/greenberrycatalog": "*",
         "mtownsend/response-xml": "*",
-        "rodenastyle/stream-parser": "^1.2"
+        "mcpuishor/stream-parser": "*"
     },
     "authors": [
         {
