@@ -69,6 +69,5 @@ class Extract {
 	public function __destruct()
 	{
     	mb_internal_encoding($this->previous_encoding);
-		parent::__destruct();
 	}
 }
