@@ -23,7 +23,7 @@
         "mcpuishor/super-traits": "*",
         "mcpuishor/greenberrycatalog": "*",
         "mtownsend/response-xml": "*",
-        "mcpuishor/stream-parser": "*"
+        "mcpuishor/stream-parser": "^1.2"
     },
     "authors": [
         {
