@@ -17,15 +17,17 @@ class Extract {
 	private $file;
 	
 
-	public function __construct($stream, $file=null)
+	public function __construct($stream="", $file=null)
 	{
-		$this->setFilename($file);
-		$this->stream = $stream;
 		$this->previous_encoding = mb_internal_encoding();
 		mb_internal_encoding('UTF-8');
-		$this->storage = Storage::disk('local');
-		$this->storage->put($this->file, $this->xml($this->stream));
     	$this->entities= new IlluminateCollection();
+		if ($stream) {
+			$this->setFilename($file);
+			$this->stream = $stream;
+			$this->storage = Storage::disk('local');
+			$this->storage->put($this->file, $this->xml($this->stream));
+		}
 		return $this;
 	}
 
@@ -34,9 +36,8 @@ class Extract {
 		$this->file = $file ?? self::TEMP_FILE;	
 	}
 
-	public function get($file= null, $delete = false)
+	public function load($delete=true)
 	{
-		$this->setFilename($file);
 		if (!Validator::file($this->file)) {
 			throw new \Exception("Error in processing the import. Post is not a valid XML stream.");
 		}
@@ -50,6 +51,18 @@ class Extract {
 		if ($delete) {
 			$this->storage->delete($$this->file);
 		}
+		//
+	}
+
+	public function get($file= null, $delete = true)
+	{
+		$this->setFilename($file);
+		$this->load($delete);
+		return $this->getEntities();
+	}
+
+	public function getEntities()
+	{
     	$this->trimNestedObjects();
     	return $this->entities;
 	}
