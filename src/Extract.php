@@ -49,7 +49,7 @@ class Extract {
 				$this->entities->push($entity);
 			});
 		if ($delete) {
-			$this->storage->delete($$this->file);
+			$this->storage->delete($this->file);
 		}
 		//
 	}
