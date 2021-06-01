@@ -32,6 +32,12 @@ class XmlResponse
 			],
 		200, [], "XMLFile");
 	}
+
+	public function reset()
+	{
+		$this->messages = [];
+		return $this;
+	}
 	
 	static public function with(string $message, string $type = "Log")
 	{
