@@ -8,11 +8,13 @@ class XmlResponse
 	{
 		return response()->xml(
 			[
-				'Response' => [
-					"Type"	=> $type,
-					"Message"	=> $message,
-				],
+				'Responses' => [
+					'Response' => [
+						"Type"	=> $type,
+						"Message"	=> $message,
+					],
+				]
 			],
-		200, [], "Responses");
+		200, [], "XMLFile");
 	}
 }
