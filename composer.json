@@ -12,12 +12,6 @@
             ]
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/mcpuishor/stream-parser"
-        }
-    ],
     "require": {
         "php": ">7.2",
         "mcpuishor/super-traits": "*",
