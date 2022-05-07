@@ -4,7 +4,7 @@
     "type": "project",
     "license": "MIT",
     "minimum-stability" : "dev",
-    "version" : "0.0.1",
+    "version" : "0.0.2",
     "extra": {
         "laravel": {
             "providers": [
@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">7.*|8.*",
+        "php": "^8.*",
         "mcpuishor/super-traits": "*",
         "mcpuishor/greenberrycatalog": "*",
         "mtownsend/response-xml": "*",
