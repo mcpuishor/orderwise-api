@@ -43,7 +43,7 @@ class Extract {
 		}
     	$file = $this->storage
     				->getAdapter()
-    				->applyPathPrefix($this->file);
+    				->path($this->file);
     	StreamParser::xml($file)
     		->each(function($entity){
 				$this->entities->push($entity);
