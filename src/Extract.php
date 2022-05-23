@@ -42,7 +42,6 @@ class Extract {
 			throw new \Exception("Error in processing the import. Post is not a valid XML stream.");
 		}
     	$file = $this->storage
-    				->getAdapter()
     				->path($this->file);
     	StreamParser::xml($file)
     		->each(function($entity){
