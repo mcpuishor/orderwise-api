@@ -30,5 +30,12 @@
         "psr-4": {
             "Mcpuishor\\OrderwiseApi\\": "src/"
         }
-    }
+    },
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url" : "https://github.com/ThePalmCentre/stream-parser"
+
+        }
+    ]
 }
