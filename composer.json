@@ -17,7 +17,7 @@
         "mcpuishor/super-traits": "*",
         "mcpuishor/greenberrycatalog": "*",
         "mtownsend/response-xml": "*",
-        "rodenastyle/stream-parser": "2.*",
+        "rodenastyle/stream-parser": "*",
         "mcpuishor/xml-util": "*"
     },
     "authors": [
